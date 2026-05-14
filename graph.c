@@ -49,7 +49,7 @@ void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     Edge* newEdge = (Edge*) malloc(sizeof(Edge*));
     if(newEdge == NULL) return;
 
-    newEdge->target = srtdup(dest);
+    newEdge->target = strdup(dest);
     newEdge->weight = weight;
 
     list_pushBack(edges, newEdge);

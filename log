@@ -60,3 +60,32 @@ graph.c:52:21: error: assignment to ‘char *’ from ‘int’ makes pointer fr
       |                     ^
 cc1: all warnings being treated as errors
 1f47ca5
+Thu May 14 10:32:07 PM UTC 2026: 
+ graph.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘addEdge’:
+graph.c:46:55: error: passing argument 2 of ‘map_search’ discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+   46 |     List* edges = (List*) map_search(g->adjacencyMap, src);
+      |                                                       ^~~
+In file included from graph.c:8:
+map.h:22:37: note: expected ‘void *’ but argument is of type ‘const char *’
+   22 | MapPair *map_search(Map *map, void *key);
+      |                               ~~~~~~^~~
+In function ‘addEdge’,
+    inlined from ‘addEdge’ at graph.c:44:6:
+graph.c:52:21: error: array subscript ‘Edge[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds=]
+   52 |     newEdge->target = strdup(dest);
+      |     ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+graph.c:49:29: note: object of size 8 allocated by ‘malloc’
+   49 |     Edge* newEdge = (Edge*) malloc(sizeof(Edge*));
+      |                             ^~~~~~~~~~~~~~~~~~~~~
+graph.c:53:21: error: array subscript ‘Edge[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds=]
+   53 |     newEdge->weight = weight;
+      |     ~~~~~~~~~~~~~~~~^~~~~~~~
+graph.c:49:29: note: object of size 8 allocated by ‘malloc’
+   49 |     Edge* newEdge = (Edge*) malloc(sizeof(Edge*));
+      |                             ^~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+5e55f1b
