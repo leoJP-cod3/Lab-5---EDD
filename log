@@ -110,3 +110,24 @@ graph.c:49:29: note: object of size 8 allocated by ‘malloc’
       |                             ^~~~~~~~~~~~~~~~~~~~~
 cc1: all warnings being treated as errors
 26c4bf1
+Thu May 14 11:01:12 PM UTC 2026: 
+ graph.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Compilation failed
+In file included from test.c:5:
+In function ‘addEdge’,
+    inlined from ‘addEdge’ at graph.c:44:6:
+graph.c:52:21: error: array subscript ‘Edge[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds=]
+   52 |     newEdge->target = strdup(dest);
+      |     ~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~
+graph.c:49:29: note: object of size 8 allocated by ‘malloc’
+   49 |     Edge* newEdge = (Edge*) malloc(sizeof(Edge*));
+      |                             ^~~~~~~~~~~~~~~~~~~~~
+graph.c:53:21: error: array subscript ‘Edge[0]’ is partly outside array bounds of ‘unsigned char[8]’ [-Werror=array-bounds=]
+   53 |     newEdge->weight = weight;
+      |     ~~~~~~~~~~~~~~~~^~~~~~~~
+graph.c:49:29: note: object of size 8 allocated by ‘malloc’
+   49 |     Edge* newEdge = (Edge*) malloc(sizeof(Edge*));
+      |                             ^~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+685141c
