@@ -136,3 +136,14 @@ Thu May 14 11:01:43 PM UTC 2026:
  1 file changed, 1 insertion(+), 1 deletion(-)
  tests:  0|0
 b606846
+Thu May 14 11:26:04 PM UTC 2026: 
+ graph.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘getWeight’:
+graph.c:73:20: error: ‘e’ undeclared (first use in this function)
+   73 |             return e->weight;
+      |                    ^
+graph.c:73:20: note: each undeclared identifier is reported only once for each function it appears in
+3b90338
