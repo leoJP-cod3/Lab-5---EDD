@@ -38,3 +38,25 @@ Thu May 14 10:26:21 PM UTC 2026:
  1 file changed, 1 insertion(+), 1 deletion(-)
  tests:  0|0
 c81bcfc
+Thu May 14 10:31:25 PM UTC 2026: 
+ graph.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+Compilation failed
+In file included from test.c:5:
+graph.c: In function ‘addEdge’:
+graph.c:46:55: error: passing argument 2 of ‘map_search’ discards ‘const’ qualifier from pointer target type [-Werror=discarded-qualifiers]
+   46 |     List* edges = (List*) map_search(g->adjacencyMap, src);
+      |                                                       ^~~
+In file included from graph.c:8:
+map.h:22:37: note: expected ‘void *’ but argument is of type ‘const char *’
+   22 | MapPair *map_search(Map *map, void *key);
+      |                               ~~~~~~^~~
+graph.c:52:23: error: implicit declaration of function ‘srtdup’; did you mean ‘strdup’? [-Wimplicit-function-declaration]
+   52 |     newEdge->target = srtdup(dest);
+      |                       ^~~~~~
+      |                       strdup
+graph.c:52:21: error: assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+   52 |     newEdge->target = srtdup(dest);
+      |                     ^
+cc1: all warnings being treated as errors
+1f47ca5
