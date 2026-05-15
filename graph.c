@@ -94,7 +94,7 @@ Obtiene el peso de la arista que conecta label1 con label2.
 
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
-    
+
     List* edges = getEdges(g, label1);
     if(edges == NULL) return -1;
     
@@ -105,7 +105,7 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
         }
         elem = (Edge*) list_next(edges);
     }
-    // Si no existe el origen o terminamos de iterar sin encontrar el destino
+    // Retornamos -1 si no existe el origen o terminamos de iterar sin encontrar el destino
     return -1; 
 }
 
@@ -121,10 +121,12 @@ lista que contenga únicamente los nombres (los strings) de los nodos adyacentes
 
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
+    
     List* edges = getEdges(g, label);
     if (edges == NULL) return NULL;
-    List* adjacentLabels = list_create();
     
+    List* adjacentLabels = list_create();
+
     Edge* elem = (Edge*) list_first(edges);
     while(elem != NULL){
         list_pushBack(adjacentLabels, elem->target);
