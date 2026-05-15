@@ -25,6 +25,7 @@ int is_equal_string(void *key1, void *key2) {
 /* =========================================
  *         IMPLEMENTACIÓN
  * ========================================= */
+/* 1.- Implemente la función createGraph Esta función debe crear y retornar un nuevo grafo vacío. Debe reservar memoria para la estructura Graph y luego inicializar su mapa interno (adjacencyMap) utilizando la función constructora del mapa */
 
 Graph* createGraph() {
     Graph* g = (Graph*) malloc(sizeof(Graph)); 
@@ -32,6 +33,10 @@ Graph* createGraph() {
     g->adjacencyMap = map_create(is_equal_string);
     return g;
 }
+/* 2.- Implemente la función addNode(Graph* g, const char* label) Esta función agrega un nuevo vértice al grafo.
+
+Primero, debe verificar si el nodo ya existe en el adjacencyMap. Si ya existe, la función no debe hacer nada.
+Si no existe, debe crear una copia del string label (usando strdup o malloc + strcpy), crear una nueva lista vacía (que almacenará sus futuras aristas) e insertar el par (copia_label, nueva_lista) en el mapa.*/
 
 void addNode(Graph* g, const char* label) {
     if (!g || !label) return;
@@ -40,6 +45,13 @@ void addNode(Graph* g, const char* label) {
     List* edges = list_create(); 
     map_insert(g->adjacencyMap, label_copy, edges);
 }
+
+/* 3.- Implemente la función addEdge(Graph* g, const char* src, const char* dest, int weight) Esta función agrega una arista dirigida desde el nodo src hacia el nodo dest con un peso weight.
+
+Debe buscar en el mapa la lista de aristas asociada al nodo origen (src). Si el nodo origen no existe, la función termina.
+Si existe, debe reservar memoria para una nueva estructura Edge.
+A este nuevo Edge, asígnele el weight y una copia del string dest (en el campo target).
+Finalmente, agregue este nuevo Edge a la lista de adyacencia del nodo src.*/
 
 void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     if (!g || !src || !dest) return;
@@ -55,6 +67,10 @@ void addEdge(Graph* g, const char* src, const char* dest, int weight) {
     list_pushBack(edges, newEdge);
 }
 
+
+/* 4.- Implemente la función getEdges(Graph* g, const char* label) Busca un nodo en el mapa a partir de su label y retorna un puntero a la Lista de aristas (Edge*) que salen de él. Si el nodo no existe en el grafo, debe retornar NULL. */
+
+
 List* getEdges(Graph* g, const char* label) {
     if (!g || !label) return NULL;
     MapPair* pair = (MapPair*) map_search(g->adjacencyMap, (void*)label);
@@ -62,6 +78,13 @@ List* getEdges(Graph* g, const char* label) {
 
     return (List*) pair->value;
 }
+
+/* 5.- Implemente la función getWeight(Graph* g, const char* label1, const char* label2) Obtiene el peso de la arista que conecta label1 con label2.
+
+Debe obtener la lista de aristas de label1.
+Itere sobre esa lista. Por cada arista, compare su campo target con label2.
+Si coinciden, retorne el peso (weight) de esa arista.
+Si la lista se termina y no encontró el destino (o si el origen no existe), retorne -1.*/
 
 int getWeight(Graph* g, const char* label1, const char* label2) {
     if (!g || !label1 || !label2) return -1;
@@ -76,12 +99,19 @@ int getWeight(Graph* g, const char* label1, const char* label2) {
         }
         elem = (Edge*) list_next(edges);
     }
-    
     // Si no existe el origen o terminamos de iterar sin encontrar el destino
     return -1; 
 }
 
+/* 6.- Implemente la función getAdjacentLabels(Graph* g, const char* label) Retorna una nueva lista que contenga únicamente los nombres (los strings) de los nodos adyacentes al nodo label.
+
+Obtenga la lista de aristas (estructuras Edge*) del nodo label.
+Cree una nueva Lista (list_create()).
+Itere sobre las aristas y agregue únicamente el campo target de cada arista a esta nueva lista.
+Retorne la nueva lista.*/
 // Retorna una nueva List* que contiene elementos de tipo char* (las etiquetas)
+
+
 List* getAdjacentLabels(Graph* g, const char* label) {
     if (!g || !label) return NULL;
     List* edges = getEdges(g, label);
@@ -93,7 +123,7 @@ List* getAdjacentLabels(Graph* g, const char* label) {
         list_pushBack(adjacentLabels, elem->target);
         elem = (Edge*) list_next(edges);
     }
-
+    
     return adjacentLabels; 
 }
 
